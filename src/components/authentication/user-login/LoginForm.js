@@ -3,7 +3,6 @@ import React , { Component } from 'react';
 import Service from '../../../config/Service';
 
 import AppContext from '../../../context/AppContext';
-import ContextProvider from '../../../context/ContextProvider';
 
 import {
   AuthForm,
@@ -42,7 +41,7 @@ class LoginForm extends Component {
         errorMessage : '',
       });
       this.context.authenticate(response.data);
-      this.props.history.push('/');
+      this.props.history.push(`/user/${response.data._id}`);
     })
     .catch( err => {
       console.log('error :', err.response.data);

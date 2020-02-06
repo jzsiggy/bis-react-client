@@ -16,8 +16,8 @@ const StyledMenu = styled.div`
 `
 
 const StyledIcon = styled.div`
-  width : 35px;
-  height : 35px;
+  width : 25px;
+  height : 25px;
   background-size : contain;
   background-repeat : no-repeat;
   margin : 20px;

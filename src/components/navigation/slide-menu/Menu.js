@@ -2,6 +2,8 @@ import React , { Component } from "react";
 
 import { Link } from 'react-router-dom';
 
+import AppContext from '../../../context/AppContext';
+
 import {
   StyledMenu,
   StyledIcon,
@@ -34,19 +36,26 @@ class Menu extends Component {
           <MenuBody>
               <MenuLink to='/'>Home</MenuLink>
               <MenuLink to='/menu'>Menu</MenuLink>
-            <AuthBtnGroup>
-              <Link to='/signup'>
-                <AuthBtn primary>Signup</AuthBtn>
-              </Link>
-              <Link to='/login'>
-                <AuthBtn>Login</AuthBtn>
-              </Link>
-            </AuthBtnGroup>
+            {
+              !this.context.state.isAuthenticated ?
+                <AuthBtnGroup>
+                  <Link to='/signup'>
+                    <AuthBtn primary>Signup</AuthBtn>
+                  </Link>
+                  <Link to='/login'>
+                    <AuthBtn>Login</AuthBtn>
+                  </Link>
+                </AuthBtnGroup>
+              :
+              ""
+            }
           </MenuBody>
         </StyledMenu>
       </React.Fragment>
     );
   };
 };
+
+Menu.contextType = AppContext;
 
 export default Menu;

@@ -44,7 +44,7 @@ class SignupForm extends Component {
         errorMessage : '',
       });
       this.context.authenticate(response.data);
-      this.props.history.push('/');
+      this.props.history.push(`/user/${response.data._id}`);
     })
     .catch( err => {
       console.log('error :', err.response.data);
