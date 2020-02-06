@@ -8,6 +8,7 @@ const StyledMenu = styled.div`
   background-color : white;
   position : fixed;
   left : -300px;
+  background-color : antiquewhite;
 
   ${props => props.isOpen && css`
     left : 0;
