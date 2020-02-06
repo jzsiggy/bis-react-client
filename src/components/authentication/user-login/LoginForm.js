@@ -2,6 +2,9 @@ import React , { Component } from 'react';
 
 import Service from '../../../config/Service';
 
+import AppContext from '../../../context/AppContext';
+import ContextProvider from '../../../context/ContextProvider';
+
 import {
   AuthForm,
   AuthContainer,
@@ -33,29 +36,19 @@ class LoginForm extends Component {
     e.preventDefault();
     this.service.post('/login', this.state)
     .then( response => {
-      console.log('response :', response);
       this.setState({
         email : '',
         password : '',
         errorMessage : '',
       });
+      this.context.authenticate(response.data);
+      this.props.history.push('/');
     })
     .catch( err => {
       console.log('error :', err.response.data);
       this.setState({
         errorMessage : err.response.data.message,
       });
-    });
-  };
-
-  checkUser = (e) => {
-    e.preventDefault();
-    this.service.post('/current-user')
-    .then( response => {
-      console.log('response :', response);
-    })
-    .catch( err => {
-      console.log('error :', err.response.data);
     });
   };
 
@@ -73,7 +66,6 @@ class LoginForm extends Component {
             <AuthInput type='password' name='password' value={this.state.password} onChange={this.handleChange}/>
           </AuthCluster>
           <SubmitBtn onClick={this.handleSubmit}>Submit</SubmitBtn>
-          <button onClick={this.checkUser}>Check</button>
         </AuthForm>
         {
           this.state.errorMessage ?
@@ -82,8 +74,10 @@ class LoginForm extends Component {
           ""
         }
       </AuthContainer>
-    );
+    )
   };
 };
+
+LoginForm.contextType = AppContext;
 
 export default LoginForm;

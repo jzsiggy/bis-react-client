@@ -2,6 +2,8 @@ import React , { Component } from 'react';
 
 import Service from '../../../config/Service';
 
+import AppContext from '../../../context/AppContext';
+
 import {
   AuthForm,
   AuthContainer,
@@ -41,6 +43,8 @@ class SignupForm extends Component {
         id : '',
         errorMessage : '',
       });
+      this.context.authenticate(response.data);
+      this.props.history.push('/');
     })
     .catch( err => {
       console.log('error :', err.response.data);
@@ -79,5 +83,7 @@ class SignupForm extends Component {
     );
   };
 };
+
+SignupForm.contextType = AppContext;
 
 export default SignupForm;
