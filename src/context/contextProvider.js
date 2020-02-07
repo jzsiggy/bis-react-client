@@ -5,8 +5,8 @@ import AppContext from './AppContext';
 import Service from '../config/Service';
 
 class ContextProvider extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.service = Service;
     this.state = {
       isAuthenticated : false,
@@ -15,12 +15,7 @@ class ContextProvider extends Component {
   };
 
   componentDidMount () {
-    if (!!localStorage.getItem('currentUser')) {
-      console.log(localStorage.getItem('currentUser'));
-      this.setState({
-        isAuthenticated : true,
-      });
-    };
+    this.getCurrentUser();
   };
 
   authenticate = (user) => {
@@ -38,6 +33,7 @@ class ContextProvider extends Component {
         isAuthenticated : false,
         currentUser : null,
       });
+      console.log('loggedOut')
     })
     .catch(err => {
       console.log(err);
@@ -47,7 +43,7 @@ class ContextProvider extends Component {
   getCurrentUser = () => {
     this.service.get('/current-user')
     .then(response => {
-      response.data._id ?
+      response.data ?
       this.authenticate(response.data)
       :
       this.setState({
