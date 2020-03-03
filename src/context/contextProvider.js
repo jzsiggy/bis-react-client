@@ -4,6 +4,8 @@ import AppContext from './AppContext';
 
 import Service from '../config/Service';
 
+import productSeed from '../components/products/productsSeed';
+
 class ContextProvider extends Component {
   constructor (props) {
     super(props)
@@ -11,11 +13,15 @@ class ContextProvider extends Component {
     this.state = {
       isAuthenticated : false,
       currentUser : null,
+      currentProduct : null,
+      darkOverlay : false,
+      cart : [],
     };
   };
 
   componentDidMount () {
     this.getCurrentUser();
+    this.getCurrentCart();
   };
 
   authenticate = (user) => {
@@ -23,15 +29,17 @@ class ContextProvider extends Component {
       isAuthenticated : true,
       currentUser : user,
     });
+    this.getCurrentCart();
     console.log('authenticated');
   };
 
   logout = () => {
-    this.service.post('/logout')
+    this.service.post('/auth/logout')
     .then(response => {
       this.setState({
         isAuthenticated : false,
         currentUser : null,
+        cart : [],
       });
       console.log('loggedOut')
     })
@@ -41,7 +49,7 @@ class ContextProvider extends Component {
   };
 
   getCurrentUser = () => {
-    this.service.get('/current-user')
+    this.service.get('/auth/current-user')
     .then(response => {
       response.data ?
       this.authenticate(response.data)
@@ -53,11 +61,68 @@ class ContextProvider extends Component {
     });
   };
 
+  getCurrentProduct = () => {
+    const url = new URL(window.location.href);
+    const queryString = url.searchParams;
+    const currentProductId = queryString.get('product');
+
+    const currentProduct = productSeed.filter(product => {
+      return `${product._id}` === currentProductId;
+    })[0];
+
+    if (this.state.currentProduct !== currentProduct) {
+      this.setState({
+        currentProduct : currentProduct,
+      });
+    };
+  };
+
+  getCurrentCart = () => {
+    this.service.get('/cart/current-cart')
+    .then(result => {
+      this.setState({
+        cart : result.data,
+      });
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    });
+  };
+
+  addToCart = (product) => {
+    this.service.post('/cart/add', {
+      product,
+    })
+    .then(result => {
+      this.setState({
+        cart : result.data,
+      });
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    });
+  };
+
+  clearCart = () => {
+    this.service.post('/cart/clear')
+    .then(
+      this.setState({
+        cart : [],
+      })
+    )
+    .catch(err => {
+      console.log(err.response);
+    })
+  };
+
   render () {
     const contextValues = {
       state : this.state,
       authenticate : this.authenticate,
       logout : this.logout,
+      getCurrentProduct : this.getCurrentProduct,
+      addToCart : this.addToCart,
+      clearCart : this.clearCart,
     };
     
     return (
