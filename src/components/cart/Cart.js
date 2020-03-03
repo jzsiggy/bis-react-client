@@ -10,6 +10,10 @@ class Cart extends Component {
   //   this.props.history.push('/');
   // };
 
+  componentDidMount () {
+    this.context.getTotalCartPrice();
+  };
+
   render () {
     return (
       <CartContainer>

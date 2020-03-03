@@ -16,6 +16,7 @@ class ContextProvider extends Component {
       currentProduct : null,
       darkOverlay : false,
       cart : [],
+      totalPrice : 0,
     };
   };
 
@@ -83,6 +84,7 @@ class ContextProvider extends Component {
       this.setState({
         cart : result.data,
       });
+      this.getTotalCartPrice();
     })
     .catch(err => {
       console.log(err.response.data);
@@ -105,14 +107,25 @@ class ContextProvider extends Component {
 
   clearCart = () => {
     this.service.post('/cart/clear')
-    .then(
+    .then( result => {
       this.setState({
         cart : [],
-      })
-    )
+      });
+      this.getTotalCartPrice()
+    })
     .catch(err => {
       console.log(err.response);
     })
+  };
+
+  getTotalCartPrice = () => {
+    let totalPrice = 0;
+    this.state.cart.map(item => {
+      totalPrice += item.price;
+    })
+    this.setState({
+      totalPrice,
+    });
   };
 
   render () {
@@ -123,6 +136,7 @@ class ContextProvider extends Component {
       getCurrentProduct : this.getCurrentProduct,
       addToCart : this.addToCart,
       clearCart : this.clearCart,
+      getTotalCartPrice : this.getTotalCartPrice,
     };
     
     return (

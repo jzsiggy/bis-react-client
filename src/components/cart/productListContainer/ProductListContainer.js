@@ -10,16 +10,16 @@ import {
 
 import Product from '../../products/menu/categories/product/Product';
 import { Link } from "react-router-dom";
+import AppContext from "../../../context/AppContext";
 
 class ProductListContainer extends Component {
+
   render () {
-    let totalPrice = 0;
     return (
       <React.Fragment>
         <CheckoutBar>
         {
           this.props.products.map((item, index) => {
-            totalPrice = totalPrice + item.price;
             return (
               <CartItem key={index}>
                 <CartItemName>{item.name}</CartItemName>
@@ -30,10 +30,14 @@ class ProductListContainer extends Component {
         }
           <CartItem>
             <CartItemName>Total</CartItemName>
-            <CartItemPrice>${totalPrice}</CartItemPrice>
+            <CartItemPrice>${this.context.state.totalPrice}</CartItemPrice>
           </CartItem>
-
-          <Link to={'/checkout/order/114563'}>Proceed to Checkout</Link>
+          {
+            this.props.products.length ?
+              <Link to={'/checkout/order/114563'}>Proceed to Checkout</Link>
+            :
+              ''
+          }
 
         </CheckoutBar>
         <Container>
@@ -51,5 +55,7 @@ class ProductListContainer extends Component {
     );
   };
 };
+
+ProductListContainer.contextType = AppContext;
 
 export default ProductListContainer;
