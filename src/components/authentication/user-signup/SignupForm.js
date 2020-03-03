@@ -34,7 +34,7 @@ class SignupForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.service.post('/signup', this.state)
+    this.service.post('/auth/signup', this.state)
     .then( response => {
       console.log('response :', response);
       this.setState({

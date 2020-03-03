@@ -33,7 +33,7 @@ class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.service.post('/login', this.state)
+    this.service.post('/auth/login', this.state)
     .then( response => {
       this.setState({
         email : '',
@@ -41,7 +41,7 @@ class LoginForm extends Component {
         errorMessage : '',
       });
       this.context.authenticate(response.data);
-      this.props.history.push(`/user/${response.data._id}`);
+      this.props.history.push(`/menu`);
     })
     .catch( err => {
       console.log('error :', err.response.data);
