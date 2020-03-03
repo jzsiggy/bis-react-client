@@ -25,6 +25,10 @@ class Menu extends Component {
     });
   };
 
+  logout = () => {
+    this.context.logout();
+  };
+
   render () {
     return (
       <React.Fragment>
@@ -47,7 +51,7 @@ class Menu extends Component {
                   </Link>
                 </AuthBtnGroup>
               :
-              ""
+                <AuthBtn onClick={this.logout}>Logout</AuthBtn>
             }
           </MenuBody>
         </StyledMenu>

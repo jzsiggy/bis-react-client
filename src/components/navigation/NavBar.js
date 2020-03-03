@@ -2,15 +2,10 @@ import React , { Component } from 'react'
 
 import AppContext from '../../context/AppContext';
 
-import { StyledNavContainer , LogoutBtn } from './styles';
+import { StyledNavContainer , StyledIcon , Cart , CartNumber } from './styles';
 import Menu from './slide-menu/Menu';
 
 class NavBar extends Component {
-
-  logout = () => {
-    this.context.logout();
-  };
-
   render () {
     return (
       <AppContext.Consumer>
@@ -21,11 +16,12 @@ class NavBar extends Component {
                 <Menu />
                 {
                   context.state.isAuthenticated ?
-                  <>
-                    <LogoutBtn onClick={this.logout}>Logout</LogoutBtn>
-                  </>
+                    <Cart to={`/user/cart/${context.state.currentUser._id}`}>
+                      <StyledIcon url='/icons/shopping-cart.png' />
+                      <CartNumber>{context.state.cart.length}</CartNumber>
+                    </Cart>
                   :
-                  ""
+                    ""
                 }
               </StyledNavContainer>
             )

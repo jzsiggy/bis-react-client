@@ -1,30 +1,46 @@
 import styled , { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledNavContainer = styled.div`
+  position : fixed;
+  background-color : rgba(255, 255, 255, 0.3);
   width : 100vw;
   display : flex;
   justify-content : space-between;
+  top : 0;
 `
 
-const LogoutBtn = styled.button`
-  background : transparent;
-  border-radius : 3px;
-  border : 1px solid rgba(38, 131, 204, 1);
-  color : rgba(38, 131, 204, 1);
-  margin : 0.5em 1em;
-  padding : 0px;
-  width : 100px;
-  height : 40px;
-  font-size : 0.8rem;
-  font-weight : bold;
-
-  ${props => props.primary && css`
-    background: rgba(38, 131, 204, 1);
-    color: white;
+const StyledIcon = styled.div`
+  width : 30px;
+  height : 30px;
+  background-size : contain;
+  background-repeat : no-repeat;
+  
+  ${props => props.url && css`
+    background-image : url(${props.url});
   `}
 `
 
+const Cart = styled(Link)`
+  margin-right : 50px;
+  display : flex;
+  height : auto;
+  align-items : center;
+`
+
+const CartNumber = styled.span`
+  position : absolute;
+  right : 29px;
+  top : 9px;
+  font-size : 1.1rem;
+  color : black;
+`
+
+// rgba(38, 131, 204, 1)
+
 export {
   StyledNavContainer,
-  LogoutBtn,
+  StyledIcon,
+  Cart,
+  CartNumber,
 };

@@ -21,6 +21,8 @@ const StyledIcon = styled.div`
   background-size : contain;
   background-repeat : no-repeat;
   margin : 20px;
+  cursor : pointer;
+  
   ${props => props.url && css`
     background-image : url(${props.url});
   `}
@@ -55,6 +57,7 @@ const AuthBtn = styled.button`
   width : 100px;
   font-size : 1.1rem;
   font-weight : bold;
+  cursor : pointer;
 
   ${props => props.primary && css`
     background: rgba(38, 131, 204, 1);
