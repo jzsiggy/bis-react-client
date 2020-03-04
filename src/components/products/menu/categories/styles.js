@@ -13,6 +13,12 @@ const Title = styled.span`
   font-weight : bold;
 `
 
+const SubTitle = styled.span`
+  margin-top : 15px;
+  color : gray;
+  font-size : 1rem;
+`
+
 const ProductsContainer = styled.div`
   display : flex;
   flex-direction : row;
@@ -24,5 +30,6 @@ const ProductsContainer = styled.div`
 export {
   CategoryContainer,
   Title,
+  SubTitle,
   ProductsContainer,
 };

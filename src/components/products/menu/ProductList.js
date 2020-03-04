@@ -11,9 +11,14 @@ class ProductList extends Component {
   state = {
     products : productsSeed,
     categories : [
-      'Flower',
-      'Concentrates',
-      'Concentrates',
+      {
+        'title' : 'Flower',
+        'subtitle' : 'The best bud. Grind it up, roll it, or pack into your preferred smoking device.',
+      },
+      {
+        'title' : 'Concentrates',
+        'subtitle' : 'Stock up with a pack of prerolled joints. Enjoy ultimate convenience and remember to share the love.',
+      },
     ],
   };
 
@@ -43,9 +48,9 @@ class ProductList extends Component {
         {
           this.state.categories.map((category, index) => {
             const products = this.state.products.filter(product => {
-              return product.category.includes(category);
+              return product.category.includes(category.title);
             });
-            return <CategoryThumb key={index} products={products} category={category}/>
+            return <CategoryThumb key={index} products={products} category={category.title} subtitle={category.subtitle}/>
           })
         }
       </React.Fragment>

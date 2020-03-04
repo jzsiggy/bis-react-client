@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 
-import { Title , CategoryContainer , ProductsContainer } from './styles';
+import { Title , CategoryContainer , ProductsContainer , SubTitle } from './styles';
 import Product from './product/Product';
 
 class CategoryThumb extends Component {
@@ -8,6 +8,7 @@ class CategoryThumb extends Component {
     return (
       <CategoryContainer>
         <Title>{this.props.category}</Title>
+        <SubTitle>{this.props.subtitle}</SubTitle>
         <ProductsContainer>
           {
             this.props.products.map((product, index) => {
