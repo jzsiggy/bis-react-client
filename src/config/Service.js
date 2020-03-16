@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Service = axios.create({
-  baseURL : 'http://localhost:5000/user',
+  baseURL : `https://bis-api.herokuapp.com/user`,
   validateStatus : function (status) {
     return status >= 200 && status < 300;
   },
