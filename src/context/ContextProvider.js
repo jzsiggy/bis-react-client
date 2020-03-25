@@ -87,7 +87,7 @@ class ContextProvider extends Component {
       this.getTotalCartPrice();
     })
     .catch(err => {
-      console.log(err.response.data);
+      console.log(err);
     });
   };
 
