@@ -7,6 +7,7 @@ const Service = axios.create({
     return status >= 200 && status < 300;
   },
   withCredentials : true,
+  headers: {'Connection': 'keep-alive'}
 });
 
 export default Service;
